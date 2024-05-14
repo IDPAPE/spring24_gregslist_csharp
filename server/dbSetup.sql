@@ -37,6 +37,20 @@ CREATE TABLE cars (
     FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
 );
 
+CREATE TABLE houses (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sqft INT NOT NULL,
+    bedrooms INT NOT NULL,
+    bathrooms DOUBLE NOT NULL,
+    imgUrl VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    price INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+    creatorId VARCHAR(255) NOT NULL,
+    FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
+);
+
 INSERT INTO
     cars (
         make,
@@ -65,10 +79,30 @@ VALUES (
         "66438c07712cf377438dedc3"
     );
 
+INSERT INTO
+    houses (
+        sqft,
+        bedrooms,
+        bathrooms,
+        imgUrl,
+        description,
+        price,
+        creatorId
+    )
+VALUES (
+        30,
+        0,
+        1,
+        "https://imgs.search.brave.com/BHp5-aRPDIG-92fAtlMp_ZTltcQyau8P-SRdDVISQ70/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzdiL2I5/LzhjLzdiYjk4Yzhm/MjhkZjcyZTAyYWM0/ZDA3OTZlNjc3Zjdk/LmpwZw",
+        "Loveley place out in nature",
+        200,
+        "660c5fdc5345daf5e92c8da2"
+    );
+
 SELECT * FROM cars;
 
 SELECT * FROM accounts WHERE id = "65f87bc1e02f1ee243874743";
 
-SELECT *
-FROM cars
-    JOIN accounts ON cars.creatorId = accounts.id;
+SELECT * FROM cars JOIN accounts ON cars.creatorId = accounts.id;
+
+DROP TABLE houses;
